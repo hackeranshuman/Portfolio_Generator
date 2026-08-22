@@ -237,7 +237,3 @@ Every star helps support the project! 🚀
 This project is open-source and available under the **MIT License**.
 
 ---
-
-<p align="center">
-  <strong>Inkfolio — Build a resume you're proud to share. 🚀</strong>
-</p>
