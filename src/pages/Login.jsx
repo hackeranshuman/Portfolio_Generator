@@ -49,7 +49,16 @@ const Login = () => {
                 <button type="submit" className="mt-2 w-full h-11 rounded-full text-white bg-green-500 hover:opacity-90 transition-opacity">
                     {state === "login" ? "Login" : "Sign up"}
                 </button>
-                <p onClick={() => setState(prev => prev === "login" ? "register" : "login")} className="text-gray-500 text-sm mt-3 mb-11">{state === "login" ? "Don't have an account?" : "Already have an account?"} <a href="#" className="text-green-500 hover:underline">click here</a></p>
+                <p className="text-gray-500 text-sm mt-3 mb-11">
+                    {state === "login" ? "Don't have an account?" : "Already have an account?"}{' '}
+                    <button
+                        type="button"
+                        onClick={() => setState(prev => prev === "login" ? "register" : "login")}
+                        className="text-green-600 hover:underline font-semibold cursor-pointer"
+                    >
+                        {state === "login" ? "Sign up" : "Login"}
+                    </button>
+                </p>
             </form>
     </div>
     )

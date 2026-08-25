@@ -1,0 +1,38 @@
+Alex Mercer
+Senior Full Stack Engineer & Cloud Architect
+Email: alex.mercer.dev@example.com | Phone: +1 (555) 789-0123
+Location: Seattle, WA | LinkedIn: linkedin.com/in/alexmercer-dev | Website: alexmercer.dev
+
+PROFESSIONAL SUMMARY
+Dynamic and results-driven Senior Full Stack Engineer with 6+ years of experience architecting resilient microservices, responsive web applications, and AI-driven workflows. Proven leader in optimizing database throughput by 45% and reducing infrastructure costs through container orchestration.
+
+TECHNICAL SKILLS
+- Frontend: React, Next.js, TypeScript, Tailwind CSS, Redux Toolkit, Vue.js
+- Backend: Node.js, Express, Python, FastAPI, Go, GraphQL, REST APIs
+- Databases: PostgreSQL, MongoDB, Redis, Prisma, DynamoDB
+- Cloud & DevOps: AWS (EC2, S3, ECS, Lambda), Docker, Kubernetes, CI/CD, Terraform
+- Tools & Methodologies: Git, Agile/Scrum, Jest, Cypress, Microservices
+
+WORK EXPERIENCE
+
+Senior Full Stack Engineer | NovaByte Technologies | 2022-04 - Present
+- Architected and delivered a real-time data streaming dashboard used by 120k+ daily active users using React, Node.js, and Apache Kafka.
+- Reduced server latency by 42% by redesigning relational data models in PostgreSQL and implementing multi-tier Redis caching.
+- Spearheaded the integration of Gemini AI models to automate automated code reviews and customer query classifications.
+
+Full Stack Developer | CloudScale Innovations | 2019-08 - 2022-03
+- Engineered scalable RESTful microservices in Go and Python to process over 2M daily payment transactions.
+- Rebuilt company-wide design system with React and Tailwind CSS, increasing developer velocity by 30%.
+- Automated end-to-end testing with Cypress and Jest, boosting code coverage to 92%.
+
+EDUCATION
+Bachelor of Science in Computer Science & Engineering
+University of Washington | 2015-09 - 2019-06
+GPA: 3.9 / 4.0
+
+PROJECTS
+- DevFlow AI - Intelligent Workflow Assistant
+AI-powered workspace management tool providing automated sprint planning, task estimation, and Git commit summaries. Built with Next.js, FastAPI, and PostgreSQL.
+
+- HyperCache - Distributed In-Memory Key-Value Store
+High-performance distributed key-value store built in Go supporting raft consensus, data replication, and sub-millisecond read latencies.
