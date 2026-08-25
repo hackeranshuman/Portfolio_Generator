@@ -27,6 +27,8 @@ import {
   X
 } from 'lucide-react'
 import PersonalInfoFrom from '../components/PersonalInfoFrom'
+import AIResumeModal from '../components/AIResumeModal'
+import { getGeminiApiKey, enhanceFieldWithGemini } from '../services/geminiParser'
 
 const TEMPLATE_OPTIONS = [
   {
@@ -90,9 +92,10 @@ const Resumebuilder = () => {
 
   // Gemini AI state
   const [geminiApiKey, setGeminiApiKey] = useState(
-    () => localStorage.getItem('gemini_api_key') || import.meta.env.VITE_GEMINI_API_KEY || ''
+    () => getGeminiApiKey() || ''
   )
   const [showApiKeyModal, setShowApiKeyModal] = useState(false)
+  const [showAIImportModal, setShowAIImportModal] = useState(false)
   const [tempApiKey, setTempApiKey] = useState('')
   const [loadingAiField, setLoadingAiField] = useState(null)
   const [aiError, setAiError] = useState('')
@@ -213,6 +216,18 @@ const Resumebuilder = () => {
     setAiError('')
   }
 
+  const handleAIImportSuccess = (importedData) => {
+    setResumeData(prev => ({
+      ...importedData,
+      _id: prev._id || resumeID,
+      personal_info: {
+        ...importedData.personal_info,
+        image: prev.personal_info?.image || importedData.personal_info?.image || null
+      }
+    }))
+    setGeminiApiKey(getGeminiApiKey())
+  }
+
   // Google Gemini API Call Handler with Rate Limiting
   const enhanceWithAI = async (type, itemIndex = null) => {
     setAiError('')
@@ -265,28 +280,7 @@ const Resumebuilder = () => {
     setRequestCount(prev => prev + 1)
 
     try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [{ text: promptText }]
-              }
-            ]
-          })
-        }
-      )
-
-      if (!response.ok) {
-        const errJson = await response.json().catch(() => ({}))
-        throw new Error(errJson?.error?.message || `API error (${response.status})`)
-      }
-
-      const resData = await response.json()
-      const generatedText = resData?.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
+      const generatedText = (await enhanceFieldWithGemini(promptText, geminiApiKey))?.trim()
 
       if (generatedText) {
         if (type === 'summary') {
@@ -960,6 +954,27 @@ const Resumebuilder = () => {
 
           {/* Action buttons */}
           <div className='flex items-center gap-3 relative'>
+            {/* Live Portfolio View Link */}
+            <Link
+              to={`/view/${resumeID}`}
+              target='_blank'
+              rel='noreferrer'
+              className='inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 rounded-lg transition-all shadow-xs'
+            >
+              <Eye className='size-3.5 text-slate-600' />
+              Live View
+            </Link>
+
+            {/* AI Import .txt Button */}
+            <button
+              type='button'
+              onClick={() => setShowAIImportModal(true)}
+              className='inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-purple-700 bg-purple-100 hover:bg-purple-200 active:bg-purple-300 rounded-lg transition-all shadow-xs cursor-pointer'
+            >
+              <Sparkles className='size-3.5 text-purple-600' />
+              Import .txt (AI)
+            </button>
+
             {/* Download Button Dropdown */}
             <div className='relative'>
               <button
@@ -1710,6 +1725,15 @@ const Resumebuilder = () => {
           </div>
         </div>
       )}
+
+      {/* AI Resume Importer Modal */}
+      <AIResumeModal
+        isOpen={showAIImportModal}
+        onClose={() => setShowAIImportModal(false)}
+        onSuccess={handleAIImportSuccess}
+        isUpdateMode={true}
+        currentResumeId={resumeID}
+      />
     </div>
   )
 }

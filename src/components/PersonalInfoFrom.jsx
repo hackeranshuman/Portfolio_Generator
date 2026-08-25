@@ -55,10 +55,10 @@ const PersonalInfoFrom = ({
           />
         </label>
 
-        {typeof data.image === 'object' && data.image !== null && (
+        {Boolean(data.image) && (
           <div className='flex flex-col gap-1 pl-4 text-sm'>
 
-            <p>Remove Background</p>
+            <p className='text-xs font-semibold text-slate-700'>Remove Background</p>
 
             <label className='relative inline-flex items-center cursor-pointer'>
 
